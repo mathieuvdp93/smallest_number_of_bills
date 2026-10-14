@@ -7,6 +7,8 @@
 int32_t validate_user_input(void);
 void discard_leftover_input(void);
 void calculate_smallest_number_of_bills(int32_t);
+int compare_ints(const void *, const void *);
+void array_and_loop_calculation_of_bills(int32_t);
 
 int main() {
 
@@ -17,6 +19,8 @@ int main() {
   printf("%d\n", user_int);
 
   calculate_smallest_number_of_bills(user_int);
+
+  array_and_loop_calculation_of_bills(user_int);
 
   return 0;
 }
@@ -93,4 +97,30 @@ void calculate_smallest_number_of_bills(int32_t input) {
   printf("10$ bills: %d\n", number_10_dollar_bills);
   printf("5$ bills: %d\n", number_5_dollar_bills);
   printf("1$ bills: %d\n", number_1_dollar_bills);
+}
+
+void array_and_loop_calculation_of_bills(int32_t input) {
+
+  int32_t bill_values[] = {5, 10, 1, 20};
+  size_t number_of_values = sizeof(bill_values) / sizeof(bill_values[0]);
+
+  qsort(bill_values, number_of_values, sizeof(bill_values[0]), compare_ints);
+
+  for (size_t i = 0; i < number_of_values; i++) {
+    int32_t number_of_bills = input / bill_values[i];
+    printf("%d bills: %d\n", bill_values[i], number_of_bills);
+    input = input % bill_values[i];
+  }
+}
+
+int compare_ints(const void *a, const void *b) {
+
+  int arg1 = *(const int *)a;
+  int arg2 = *(const int *)b;
+
+  if (arg1 < arg2)
+    return 1;
+  if (arg1 > arg2)
+    return -1;
+  return 0;
 }
