@@ -15,13 +15,20 @@ What I wanted to learn:
 
 ## 💡 What I Learned
 
-- 
+- the checks that i need to do for fgets.
+- first: check to see if input was fully read and if necesarry flush leftover input
+- second: check input vs long boundaries for overflow etc, optional if target variable type is not long check these boundaries as a extra check
+- third: check to see if any of the input was valid
+- fourth: check to see if all the input was valid
 
 ## 🐛 Mistakes & Fixes
 
-- **Problem:**  
-  **Fix:** 
+- **Problem:**  when input was too many chars for the string where fgets stores what it read the leftover chars would stay in the stream and interfere with the next input
+  **Fix:** check if the input was fully read with strchr and if necesarry flush the stream with getchar.
 
 ## ❓ Open Questions
 
 - 
+
+
+
