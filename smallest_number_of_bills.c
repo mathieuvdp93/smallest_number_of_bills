@@ -6,6 +6,7 @@
 
 int32_t validate_user_input(void);
 void discard_leftover_input(void);
+void calculate_smallest_number_of_bills(int32_t);
 
 int main() {
 
@@ -14,6 +15,9 @@ int main() {
   user_int = validate_user_input();
 
   printf("%d\n", user_int);
+
+  calculate_smallest_number_of_bills(user_int);
+
   return 0;
 }
 
@@ -68,4 +72,25 @@ void discard_leftover_input() {
   while ((character = getchar()) != '\n' && character != EOF) {
     ;
   }
+}
+
+void calculate_smallest_number_of_bills(int32_t input) {
+
+  int32_t number_20_dollar_bills = 0;
+  int32_t number_10_dollar_bills = 0;
+  int32_t number_5_dollar_bills = 0;
+  int32_t number_1_dollar_bills = 0;
+
+  number_20_dollar_bills = input / 20;
+  input = input % 20;
+  number_10_dollar_bills = input / 10;
+  input = input % 10;
+  number_5_dollar_bills = input / 5;
+  input = input % 5;
+  number_1_dollar_bills = input;
+
+  printf("20$ bills: %d\n", number_20_dollar_bills);
+  printf("10$ bills: %d\n", number_10_dollar_bills);
+  printf("5$ bills: %d\n", number_5_dollar_bills);
+  printf("1$ bills: %d\n", number_1_dollar_bills);
 }
