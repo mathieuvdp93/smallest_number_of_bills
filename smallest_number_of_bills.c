@@ -2,14 +2,14 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int32_t validate_user_input(void);
+void discard_leftover_input(void);
 
 int main() {
 
   int32_t user_int;
-
-  printf("Enter a dollar amount: ");
 
   user_int = validate_user_input();
 
@@ -24,9 +24,17 @@ int32_t validate_user_input(void) {
   int success = 0;
 
   do {
-    if (!fgets(char *str, 32, buf)) {
+
+    printf("Enter a dollar amount: ");
+    if (!fgets(buf, sizeof buf, stdin)) {
       printf("read unsuccesful");
       exit(1);
+    }
+
+    if (strchr(buf, '\n') == NULL) {
+      printf("your input was too many chars for the buffer\n");
+      discard_leftover_input();
+      continue;
     }
 
     errno = 0;
@@ -35,13 +43,16 @@ int32_t validate_user_input(void) {
     result = strtol(buf, &endptr, 10);
 
     if (errno == ERANGE) {
-      printf("number to big or small");
+      printf("number to big or small\n");
+      success = 0;
+    } else if (INT32_MIN > result || result > INT32_MAX) {
+      printf("number to big or small for int32_t");
       success = 0;
     } else if (buf == endptr) {
-      printf("no valid input detected");
+      printf("no valid input detected\n");
       success = 0;
     } else if ((*endptr) && !(*endptr == '\n')) {
-      printf("value not fully convertable");
+      printf("value not fully convertable\n");
       success = 0;
     } else {
       success = 1;
@@ -49,4 +60,12 @@ int32_t validate_user_input(void) {
   } while (success == 0);
 
   return (int32_t)result;
+}
+
+void discard_leftover_input() {
+
+  int character;
+  while ((character = getchar()) != '\n' && character != EOF) {
+    ;
+  }
 }
