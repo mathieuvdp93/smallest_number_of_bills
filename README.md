@@ -20,6 +20,8 @@ What I wanted to learn:
 - second: check input vs long boundaries for overflow etc, optional if target variable type is not long check these boundaries as a extra check
 - third: check to see if any of the input was valid
 - fourth: check to see if all the input was valid
+- made a loop version of the function that uses an array that contains the bill values, here i learned to use the sizeof(x) and use size_t for i in loops
+- this also made me use the qsort function to sort the array, learned that i can sort the array in different ways by modifying the sorting function i pass to qsort.
 
 ## 🐛 Mistakes & Fixes
 
@@ -28,7 +30,7 @@ What I wanted to learn:
 
 ## ❓ Open Questions
 
-- 
+- what other sorting functions can i pass to qsort? how do different sorting ways affect the speed/ outcomes of the sorting? 
 
 
 
